@@ -1,8 +1,7 @@
 /*==============================================================================
-Copyright (c) 2016 PTC Inc.
 Copyright (c) 2013-2014 Qualcomm Connected Experiences, Inc.
 All Rights Reserved.
-Confidential and Proprietary - Protected under copyright and other laws.
+Confidential and Proprietary - Qualcomm Connected Experiences, Inc.
 ==============================================================================*/
 
 using System;
@@ -137,7 +136,7 @@ namespace Vuforia
                 mCurrentActivity = javaUnityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
                 if (mCurrentActivity != null)
                 {
-                    mVuforiaInitializer = new AndroidJavaClass("com.vuforia.VuforiaUnityPlayer.VuforiaInitializer");
+                    mVuforiaInitializer = new AndroidJavaClass("com.qualcomm.QCARUnityPlayer.QCARInitializer");
                     mVuforiaInitializer.CallStatic("loadNativeLibraries");
                 }
             }
@@ -159,7 +158,7 @@ namespace Vuforia
     #if UNITY_ANDROID
             LoadNativeLibrariesFromJava();
             if (mVuforiaInitializer != null)
-                errorcode = mVuforiaInitializer.CallStatic<int>("initVuforia", mCurrentActivity, licenseKey);
+                errorcode = mVuforiaInitializer.CallStatic<int>("initQCAR", mCurrentActivity, licenseKey);
 #endif
             return errorcode;
         }
@@ -173,7 +172,7 @@ namespace Vuforia
             mCurrentActivity = javaUnityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
             if (mCurrentActivity != null)
             {
-                mJavaOrientationUtility = new AndroidJavaClass("com.vuforia.VuforiaUnityPlayer.OrientationUtility");
+                mJavaOrientationUtility = new AndroidJavaClass("com.qualcomm.QCARUnityPlayer.OrientationUtility");
             }
     #endif
 

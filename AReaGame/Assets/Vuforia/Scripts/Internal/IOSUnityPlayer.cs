@@ -1,7 +1,7 @@
 /*==============================================================================
 Copyright (c) 2013-2014 Qualcomm Connected Experiences, Inc.
 All Rights Reserved.
-Confidential and Proprietary - Protected under copyright and other laws.
+Confidential and Proprietary - Qualcomm Connected Experiences, Inc.
 ==============================================================================*/
 
 using System;
@@ -39,8 +39,7 @@ namespace Vuforia
         /// </summary>
         public VuforiaUnity.InitError Start(string licenseKey)
         {
-            VuforiaRenderer.RendererAPI rendererAPI = VuforiaRenderer.Instance.GetRendererAPI();
-            int errorCode = initQCARiOS((int)rendererAPI, (int)Screen.orientation, licenseKey);
+            int errorCode = initQCARiOS((int)Screen.orientation, licenseKey);
             if (errorCode >= 0)
                 InitializeSurface();
             return (VuforiaUnity.InitError)errorCode;
@@ -113,7 +112,7 @@ namespace Vuforia
         private static extern void setPlatFormNative();
 
         [DllImport("__Internal")]
-        private static extern int initQCARiOS(int rendererAPI, int screenOrientation, string licenseKey);
+        private static extern int initQCARiOS(int screenOrientation, string licenseKey);
 
         [DllImport("__Internal")]
         private static extern void setSurfaceOrientationiOS(int screenOrientation);

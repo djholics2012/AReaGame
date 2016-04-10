@@ -1,3 +1,6 @@
+//Copyright (c) 2010-2014 Qualcomm Connected Experiences, Inc.
+//All Rights Reserved.
+//Confidential and Proprietary - Qualcomm Connected Experiences, Inc.
 Shader "DepthMask" {
    
     SubShader {
