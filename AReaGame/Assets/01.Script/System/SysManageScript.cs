@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class UIStatementScript : MonoBehaviour {
+public class SysManageScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
