@@ -15,16 +15,16 @@ public class SysManageScript : MonoBehaviour {
     public Button reset;
 
     private SysStates sysState;
-    private SurfaceBehaviour smartSurface;
-    private ReconstructionAbstractBehaviour reconstructionBehaviour;
+    private SurfaceBehaviour mSmartSurface;
+    private ReconstructionAbstractBehaviour mReconstructionBehaviour;
     //스마트 터레인 이벤트 핸들러
     //이미지 타겟 트렉커블 이벤트 핸들러
 
 
 	// Use this for initialization
 	void Start () {
-        reconstructionBehaviour = FindObjectOfType<ReconstructionAbstractBehaviour>();
-        smartSurface = GameObject.FindObjectOfType<SurfaceBehaviour>();
+        mReconstructionBehaviour = FindObjectOfType<ReconstructionAbstractBehaviour>();
+        mSmartSurface = GameObject.FindObjectOfType<SurfaceBehaviour>();
 	}
 	
 	// Update is called once per frame
@@ -33,13 +33,18 @@ public class SysManageScript : MonoBehaviour {
         {
             Application.Quit();
         }
-        bool showAim = false;
+        bool showPointFrame = false;
         bool showStartButton = false;
         bool showResetButton = false;
 
         switch(sysState)
         {
+            //game ready state
             case SysStates.READY:
+                mSmartSurface.GetComponent<Renderer>().enabled = false;
+                showPointFrame = true;
+                break;
+            case SysStates.PLAY:
 
         }
 	}
