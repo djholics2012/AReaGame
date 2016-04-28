@@ -11,6 +11,7 @@ public class SysManageScript : MonoBehaviour {
     public FireEventScript shootUnit;
     public RawImage targetAim;
     public Text operateText;
+    public Text shootText;
     public Button startButton;
     public Button resetButton;
 
@@ -24,7 +25,7 @@ public class SysManageScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         mReconstructionBehaviour = FindObjectOfType<ReconstructionAbstractBehaviour>();
-   //     mSmartSurface = GameObject.FindObjectOfType<SurfaceBehaviour>();
+        //     mSmartSurface = GameObject.FindObjectOfType<SurfaceBehaviour>();
 	}
 	
 	// Update is called once per frame
@@ -78,6 +79,8 @@ public class SysManageScript : MonoBehaviour {
         if(targetAim != null && showPointFrame != targetAim.enabled)
         {
             targetAim.enabled = showPointFrame;
+            operateText.gameObject.SetActive(showPointFrame);
+            shootText.gameObject.SetActive(!showPointFrame);
         }
         
         if(startButton != null && showStartButton != startButton.enabled)
