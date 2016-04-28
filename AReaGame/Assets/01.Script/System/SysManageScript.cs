@@ -14,6 +14,8 @@ public class SysManageScript : MonoBehaviour {
     public Text shootText;
     public Button startButton;
     public Button resetButton;
+    public Button finishButton;
+    public AudioSource buttonClicked;
 
     private SysStates sysState;
  //   private SurfaceBehaviour mSmartSurface;
@@ -37,8 +39,8 @@ public class SysManageScript : MonoBehaviour {
         bool showPointFrame = false;
         bool showStartButton = false;
         bool showResetButton = false;
-
-      //  Debug.Log("State : " + sysState);
+        bool showFinishButton = false;
+      //  
 
         switch(sysState)
         {
@@ -47,20 +49,23 @@ public class SysManageScript : MonoBehaviour {
             case SysStates.READY:
              //   mSmartSurface.GetComponent<Renderer>().enabled = false;
                 showPointFrame = true;
-                showStartButton = true;
+                showStartButton = true;                
                 break;
 
 
             case SysStates.PLAY:
                 showPointFrame = false;
                 showStartButton = false;
+                showFinishButton = true;
                 shootUnit.gameObject.SetActive(true);
             //    mReconstructionBehaviour.Reconstruction.Stop();
                 break;
 
 
             case SysStates.END:
+                showFinishButton = false;
                 showResetButton = true;
+                shootUnit.gameObject.SetActive(false);
                 break;
 
 
@@ -90,6 +95,13 @@ public class SysManageScript : MonoBehaviour {
             startButton.gameObject.SetActive(showStartButton);
         }
 
+        if(finishButton != null && showFinishButton != finishButton.enabled)
+        {
+            finishButton.enabled = showFinishButton;
+            finishButton.image.enabled = showFinishButton;
+            finishButton.gameObject.SetActive(showFinishButton);
+        }
+
         if(resetButton != null && showResetButton != resetButton.enabled)
         {
             resetButton.enabled = showResetButton;
@@ -100,12 +112,23 @@ public class SysManageScript : MonoBehaviour {
 
     public void Play()
     {
+        
         sysState = SysStates.PLAY;
+        buttonClicked.Play();
         Debug.Log("Start game");
+    }
+
+    public void End()
+    {
+        sysState = SysStates.END;
+        buttonClicked.Play();
+        Debug.Log("State : " + sysState);
     }
 
     public void Reset()
     {
         sysState = SysStates.RESET;
+        buttonClicked.Play();
+        Debug.Log("State : " + sysState);
     }
 }

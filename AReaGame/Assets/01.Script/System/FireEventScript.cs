@@ -3,9 +3,9 @@ using System.Collections;
 using Vuforia;
 
 public class FireEventScript : MonoBehaviour {
-    public float timeBetweenBullets = 0.15f;
+    public float timeBetweenBullets = 0.1f;
+    public GameObject flare;//플레어효과
 
-    bool singleTab;
     float timer;
     float speed;
     RaycastHit touchHit;// 터치해서 맞은곳
@@ -15,6 +15,7 @@ public class FireEventScript : MonoBehaviour {
     int shootableMask;//맞는 유닛인지 확인
     LineRenderer gunLine;//총알 효과
     AudioSource gunAudio;//총소리
+
     float effectsDisplayTime = 0.15f;
     Vector3 shootTarget;//쏠 위치
     Vector3 shootDir;//쏘는 방향
@@ -26,23 +27,18 @@ public class FireEventScript : MonoBehaviour {
         gunAudio = GetComponent<AudioSource>();
     }
 
-    void Start()
-    {
-        singleTab = true;
-    }
 	
     // Update is called once per frame
     void Update()
     {
             timer += Time.deltaTime;
-            if (Input.GetMouseButtonDown(0) && timer >= timeBetweenBullets && singleTab)
+            if ( Input.GetMouseButtonDown(0) && timer >= timeBetweenBullets)
             {
                 Shoot();
             }
             if (timer >= timeBetweenBullets * effectsDisplayTime)
             {
                 DisableEffects();
-                singleTab = true;
             }
     }
 
@@ -54,7 +50,6 @@ public class FireEventScript : MonoBehaviour {
     void Shoot()
     {
         timer = 0f;
-        singleTab = false;
 
         gunAudio.Play();
 
@@ -63,10 +58,9 @@ public class FireEventScript : MonoBehaviour {
 
         GameObject cm = VuforiaManager.Instance.ARCameraTransform.gameObject;
         Camera[] cam = cm.GetComponentsInChildren<Camera>();
-        touchRay = cam[0].ScreenPointToRay(Input.GetTouch(0).position);
-
+        touchRay = cam[0].ScreenPointToRay(Input.mousePosition);
+        
         Physics.Raycast(touchRay, out touchHit);//터치한 지점 탐색
-
         shootRay.origin = transform.position;
         shootRay.direction = touchHit.point - transform.position;
 
@@ -75,7 +69,8 @@ public class FireEventScript : MonoBehaviour {
         {
             Debug.Log("Hit : " + shootHit.collider.gameObject.name);
             gunLine.SetPosition(1, shootHit.point);
-            //takedamage ---> 맞았을때 효과를 추가한다.
+            Instantiate(flare, shootHit.point, transform.rotation);
+            //takedamage ---> 적이 맞았을때 함수를 추가한다.
         }
         
     }
